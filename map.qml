@@ -28,6 +28,13 @@ Rectangle{
 
                 onAddPoint(crd.latitude, crd.longitude);
             }
+
+            onDoubleClicked: {
+                var crd = mapView.toCoordinate(Qt.point(mouseX, mouseY))
+                console.log(crd.latitude, crd.longitude, crd.altitude);
+
+                onAddPoint(crd.latitude, crd.longitude);
+            }
         }
     }
 
@@ -51,7 +58,7 @@ Rectangle{
 
                 sourceItem: Image {
                     id: image
-                    source: "http://maps.gstatic.com/mapfiles/ridefinder-images/mm_20_red.png"
+                    source: "qrc:/map_pin.png"
 
                     MouseArea {
                         anchors.fill: parent

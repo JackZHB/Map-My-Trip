@@ -7,5 +7,4 @@ To run the program:
 4. Open Project -> Mapping-My-Trip -> Mapping-My-Trip.pro
 5. Now you can run the app
 
-Username: admin
-Pass: admin
+Please Register for a new account before logging in

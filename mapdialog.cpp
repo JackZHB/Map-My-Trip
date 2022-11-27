@@ -4,9 +4,12 @@
 #include <QQuickItem>
 #include <QMenu>
 #include <QAction>
+#include <QPixmap>
 
 #include "pointentity.h"
 #include "picturedialog.h"
+
+
 
 MapDialog::MapDialog( int userId, QWidget *parent) :
     QDialog(parent),
@@ -14,6 +17,9 @@ MapDialog::MapDialog( int userId, QWidget *parent) :
     userId(userId)
 {
     ui->setupUi(this);
+    QPixmap pix(":/information.png");
+    ui->label_info->setPixmap(pix.scaled(100,100,Qt::KeepAspectRatio));
+
     helper.open();
 
     QQuickItem *root = ui->quickWidget->rootObject();
@@ -50,6 +56,7 @@ void MapDialog::addPoint(QVariant latitude, QVariant longitude)
     dialog.exec();
 
     emit doAddPoint(pointId, latitude, longitude);
+
 
 }
 

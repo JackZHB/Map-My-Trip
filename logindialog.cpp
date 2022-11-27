@@ -12,6 +12,8 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
+    QPixmap pix(":/tourists.png");
+    ui->label_tourist->setPixmap(pix.scaled(300,300,Qt::KeepAspectRatio));
 }
 
 LoginDialog::~LoginDialog()
