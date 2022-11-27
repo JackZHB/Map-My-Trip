@@ -68,7 +68,7 @@ void PictureDialog::on_listView_clicked(const QModelIndex &index)
     PictureEntity entity = list.at(index.row());
     QPixmap pixmap;
     pixmap.loadFromData(entity.getFileData());
-    label->setPixmap(pixmap);
+    label->setPixmap(pixmap.scaled(300,300,Qt::KeepAspectRatio));
     label->resize(pixmap.size());
 
 //    ui->scrollArea->widget()->adjustSize();
