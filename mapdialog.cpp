@@ -28,7 +28,13 @@ MapDialog::MapDialog( int userId, QWidget *parent) :
     connect(root, SIGNAL(onPointClicked(QVariant)), this, SLOT(pointClicked(QVariant)));
     connect(this, SIGNAL(doAddPoint(QVariant, QVariant, QVariant)), root, SLOT(doAddPoint(QVariant, QVariant, QVariant)));
 
+
+
     updatePointList();
+
+
+
+
 }
 
 
@@ -53,7 +59,7 @@ void MapDialog::addPoint(QVariant latitude, QVariant longitude)
     int pointId = helper.addPoint(userId, latitude.toDouble(), longitude.toDouble());
     PictureDialog dialog(pointId);
     dialog.setModal(true);
-    dialog.exec();
+    //dialog.exec();
 
     emit doAddPoint(pointId, latitude, longitude);
 
@@ -66,4 +72,5 @@ void MapDialog::pointClicked(QVariant pointId)
     dialog.setModal(true);
     dialog.exec();
 }
+
 
