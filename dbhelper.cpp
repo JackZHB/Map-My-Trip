@@ -1,6 +1,7 @@
 #include "dbhelper.h"
 #include <QDebug>
 #include <QDateTime>
+#include <iostream>
 
 DBHelper::DBHelper(QObject *parent)
     : QObject{parent}
@@ -55,16 +56,27 @@ int DBHelper::checkUser(QString username, QString password)
     }
 }
 
-int DBHelper::addPoint(int userId, double latitude, double longitude)
+int DBHelper::addPoint(int userId, double latitude, double longitude, QString name)
 {
     QSqlQuery query;
-    query.prepare("insert into t_point(user_id, latitude, longitude, create_time) values(:userId, :latitude, :longitude, :createTime)");
+    query.prepare("insert into t_point(user_id, latitude, longitude, create_time,name) values(:userId, :latitude, :longitude, :createTime, :name)");
     query.bindValue(":userId", userId);
     query.bindValue(":latitude", latitude);
     query.bindValue(":longitude", longitude);
     query.bindValue(":createTime", QDateTime::currentDateTime());
+    query.bindValue(":name", name);
     query.exec();
     return query.lastInsertId().toInt();
+}
+
+QString DBHelper::getName(int userId)
+{
+    QSqlQuery query;
+    query.prepare("select id, user_id, latitude, longitude, create_time, deleted from t_point where deleted=0 and user_id=:userId");
+    query.bindValue(":userId", userId);
+    query.exec();
+
+    return query.value(6).toString();
 }
 
 QList<PointEntity> DBHelper::getPointList(int userId)
@@ -81,7 +93,8 @@ QList<PointEntity> DBHelper::getPointList(int userId)
                            query.value(2).toDouble(),
                            query.value(3).toDouble(),
                            query.value(4).toInt(),
-                           query.value(5).toInt());
+                           query.value(5).toInt(),
+                           query.value(6).toString());
         list.append(entity);
     }
     return list;
@@ -148,7 +161,8 @@ void DBHelper::initData()
                "longitude NUMERIC,"
                "latitude NUMERIC,"
                "create_time INTEGER,"
-               "deleted INTEGER DEFAULT (0)"
+               "deleted INTEGER DEFAULT (0),"
+               "name TEXT (128)"
                ");");
     qDebug()<<"create t_point"<<result.numRowsAffected();
 

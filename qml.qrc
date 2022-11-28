@@ -2,8 +2,9 @@
     <qresource prefix="/">
         <file>map_pin.png</file>
         <file>map.qml</file>
-        <file>LocationInformationList</file>
         <file>information.png</file>
         <file>tourists.png</file>
+        <file>green_pin.png</file>
+        <file>LocationInformationList.txt</file>
     </qresource>
 </RCC>

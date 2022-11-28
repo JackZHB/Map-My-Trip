@@ -40,13 +40,14 @@ private slots:
      * @param latitude
      * @param longitude
      */
-    void addPoint(QVariant latitude, QVariant longitude);
+    void addPoint(QVariant latitude, QVariant longitude, QVariant name);
     /**
      * invoked by map when mark point clicked.
      * @brief pointClicked
      * @param pointId
      */
     void pointClicked(QVariant pointId);
+    void addLocationInformationList();
 
 private:
     Ui::MapDialog *ui;

@@ -1,5 +1,6 @@
 #include "picturedialog.h"
 #include "ui_picturedialog.h"
+#include "pointentity.h"
 
 #include <QFileDialog>
 #include <QDebug>
@@ -7,6 +8,9 @@
 #include <QMessageBox>
 #include <QPixmap>
 #include <QStringListModel>
+#include <iostream>
+
+
 
 PictureDialog::PictureDialog(int pointId, QWidget *parent) :
     QDialog(parent),
@@ -14,11 +18,19 @@ PictureDialog::PictureDialog(int pointId, QWidget *parent) :
     pointId(pointId)
 {
     ui->setupUi(this);
-
     label = new QLabel(this);
+
+
+
+
+    QString name = helper.getName(pointId);
+   ui->label_location_name->setText(name);
+
+
     ui->scrollArea->setWidget(label);
 
     updateList();
+
 }
 
 PictureDialog::~PictureDialog()

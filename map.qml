@@ -18,27 +18,29 @@ Rectangle{
         anchors.fill: parent
         plugin:mapPlugin
         center: QtPositioning.coordinate(oldLat, oldLng);
-        zoomLevel: 10
+        zoomLevel: 13
 
         MouseArea {
             anchors.fill: parent
             onPressAndHold: {
+                var name = qsTr("untitled");
                 var crd = mapView.toCoordinate(Qt.point(mouseX, mouseY))
-                console.log(crd.latitude, crd.longitude, crd.altitude);
+                console.log(crd.latitude, crd.longitude, crd.altitude,name);
 
-                onAddPoint(crd.latitude, crd.longitude);
+                onAddPoint(crd.latitude, crd.longitude, name);
             }
 
             onDoubleClicked: {
+                var name = qsTr("untitled");
                 var crd = mapView.toCoordinate(Qt.point(mouseX, mouseY))
-                console.log(crd.latitude, crd.longitude, crd.altitude);
+                console.log(crd.latitude, crd.longitude, crd.altitude,name);
 
-                onAddPoint(crd.latitude, crd.longitude);
+                onAddPoint(crd.latitude, crd.longitude, name);
             }
         }
     }
 
-    signal onAddPoint(var latitude, var longitude);
+    signal onAddPoint(var latitude, var longitude, var name);
 
     signal onPointClicked(var pointId);
 

@@ -9,6 +9,8 @@
 #include <QList>
 #include "pointentity.h"
 #include "pictureentity.h"
+#include <string>
+#include <QString>
 
 class DBHelper : public QObject
 {
@@ -56,7 +58,7 @@ public:
      * @param longitude
      * @return
      */
-    int addPoint(int userId, double latitude, double longitude);
+    int addPoint(int userId, double latitude, double longitude, QString name);
 
     /**
      * get point list by userId
@@ -65,6 +67,9 @@ public:
      * @param userId
      * @return
      */
+
+    QString getName(int pointId);
+
     QList<PointEntity> getPointList(int userId);
 
     /**

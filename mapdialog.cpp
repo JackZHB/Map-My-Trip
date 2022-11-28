@@ -5,11 +5,20 @@
 #include <QMenu>
 #include <QAction>
 #include <QPixmap>
+#include <QMessageBox>
+#include <QString>
 
 #include "pointentity.h"
 #include "picturedialog.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <iterator>
 
 
+using namespace std;
 
 MapDialog::MapDialog( int userId, QWidget *parent) :
     QDialog(parent),
@@ -24,15 +33,15 @@ MapDialog::MapDialog( int userId, QWidget *parent) :
 
     QQuickItem *root = ui->quickWidget->rootObject();
 
-    connect(root, SIGNAL(onAddPoint(QVariant, QVariant)), this, SLOT(addPoint(QVariant, QVariant)));
+    connect(root, SIGNAL(onAddPoint(QVariant, QVariant,QVariant)), this, SLOT(addPoint(QVariant, QVariant,QVariant)));
     connect(root, SIGNAL(onPointClicked(QVariant)), this, SLOT(pointClicked(QVariant)));
     connect(this, SIGNAL(doAddPoint(QVariant, QVariant, QVariant)), root, SLOT(doAddPoint(QVariant, QVariant, QVariant)));
 
 
 
+
+    addLocationInformationList();
     updatePointList();
-
-
 
 
 }
@@ -54,9 +63,10 @@ void MapDialog::updatePointList()
     }
 }
 
-void MapDialog::addPoint(QVariant latitude, QVariant longitude)
+void MapDialog::addPoint(QVariant latitude, QVariant longitude, QVariant name)
 {
-    int pointId = helper.addPoint(userId, latitude.toDouble(), longitude.toDouble());
+
+    int pointId = helper.addPoint(userId, latitude.toDouble(), longitude.toDouble(), name.toString());
     PictureDialog dialog(pointId);
     dialog.setModal(true);
     //dialog.exec();
@@ -73,4 +83,23 @@ void MapDialog::pointClicked(QVariant pointId)
     dialog.exec();
 }
 
+void MapDialog::addLocationInformationList(){
+    QFile readFile(":/LocationInformationList.txt");
+    if (!readFile.open(QIODevice::ReadOnly)){
+        QMessageBox::information (0, "error", readFile.errorString());
+    }
+
+    QTextStream in(&readFile);
+
+    while (!in.atEnd()){
+        QString line = in.readLine();
+
+        QStringList locationElement = line.split(u',');
+        QString name=locationElement[0];
+        QString lat=locationElement[1];
+        QString longt=locationElement[2];
+        addPoint(lat,longt,name);
+    }
+    readFile.close();
+}
 

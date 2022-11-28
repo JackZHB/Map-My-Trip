@@ -1,4 +1,5 @@
 #include "pointentity.h"
+#include <QString>
 
 PointEntity::PointEntity()
 {
@@ -36,10 +37,16 @@ bool PointEntity::getDeleted() const
     return deleted;
 }
 
-PointEntity::PointEntity(int id, int userId, double latitude, double longitude,  long createTime, bool deleted) : id(id),
+QString PointEntity::getName() const
+{
+    return name;
+}
+
+PointEntity::PointEntity(int id, int userId, double latitude, double longitude,  long createTime, bool deleted, QString name) : id(id),
     userId(userId),
     latitude(latitude),
     longitude(longitude),
     createTime(createTime),
-    deleted(deleted)
+    deleted(deleted),
+    name(name)
 {}
