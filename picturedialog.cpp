@@ -24,7 +24,7 @@ PictureDialog::PictureDialog(int pointId, QWidget *parent) :
 
 
     QString name = helper.getName(pointId);
-    ui->label_location_name->setText(name);
+   ui->label_location_name->setText(name);
 
 
     ui->scrollArea->setWidget(label);
@@ -82,7 +82,17 @@ void PictureDialog::on_listView_clicked(const QModelIndex &index)
     pixmap.loadFromData(entity.getFileData());
     label->setPixmap(pixmap.scaled(300,300,Qt::KeepAspectRatio));
     label->resize(pixmap.size());
+    //label -> setCursor(Qt::PointingHandCursor);
 
 //    ui->scrollArea->widget()->adjustSize();
+}
+
+
+void PictureDialog::on_post_clicked()
+{
+    QString postText = ui ->postText->toPlainText();
+    qDebug()<< postText;
+    helper.addPost(pointId,postText);
+
 }
 

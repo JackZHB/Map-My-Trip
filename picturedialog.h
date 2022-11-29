@@ -44,6 +44,8 @@ private slots:
      */
     void on_listView_clicked(const QModelIndex &index);
 
+    void on_post_clicked();
+
 private:
     Ui::PictureDialog *ui;
     /**

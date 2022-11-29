@@ -6,5 +6,6 @@
         <file>tourists.png</file>
         <file>green_pin.png</file>
         <file>LocationInformationList.txt</file>
+        <file>Profile_image.png</file>
     </qresource>
 </RCC>

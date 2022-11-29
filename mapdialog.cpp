@@ -1,22 +1,6 @@
 #include "mapdialog.h"
 #include "ui_mapdialog.h"
 
-#include <QQuickItem>
-#include <QMenu>
-#include <QAction>
-#include <QPixmap>
-#include <QMessageBox>
-#include <QString>
-
-#include "pointentity.h"
-#include "picturedialog.h"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <string>
-#include <iterator>
-
 
 using namespace std;
 
@@ -37,7 +21,7 @@ MapDialog::MapDialog( int userId, QWidget *parent) :
     connect(root, SIGNAL(onPointClicked(QVariant)), this, SLOT(pointClicked(QVariant)));
     connect(this, SIGNAL(doAddPoint(QVariant, QVariant, QVariant)), root, SLOT(doAddPoint(QVariant, QVariant, QVariant)));
 
-
+    connect(ui->Profile, SIGNAL(click()), this, SLOT());
 
 
 
@@ -91,22 +75,29 @@ void MapDialog::addLocationInformationList(){
 
     QTextStream in(&readFile);
 
-
     while (!in.atEnd()){
         QString line = in.readLine();
+
         QStringList locationElement = line.split(u',');
         QString name=locationElement[0];
         QString lat=locationElement[1];
         QString longt=locationElement[2];
         addPoint(lat,longt,name);
     }
-
     readFile.close();
 }
 
-
-void MapDialog::on_GetSetLocation_clicked()
+void MapDialog::mousePressEvent(QMouseEvent *event)
 {
-    addLocationInformationList();
+    ProfileDialog dialog(userId);
+    dialog.setWindowTitle("Profile");
+    dialog.setModal(true);
+    dialog.exec();
+    emit clicked();
+}
+
+void MapDialog::on_button_recommend_clicked()
+{
+        addLocationInformationList();
 }
 

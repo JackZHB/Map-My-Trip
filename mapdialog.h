@@ -5,6 +5,25 @@
 #include <QVariant>
 #include "dbhelper.h"
 
+#include <QQuickItem>
+#include <QMenu>
+#include <QAction>
+#include <QPixmap>
+#include <QMessageBox>
+#include <QString>
+
+#include "pointentity.h"
+#include "picturedialog.h"
+#include "profileentity.h"
+#include "profiledialog.h"
+#include "clickablelabel.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <iterator>
+
 namespace Ui {
 class MapDialog;
 }
@@ -32,6 +51,7 @@ signals:
      * @param longitude
      */
     void doAddPoint(QVariant id, QVariant latitude, QVariant longitude);
+    void clicked();
 
 private slots:
     /**
@@ -48,8 +68,9 @@ private slots:
      */
     void pointClicked(QVariant pointId);
     void addLocationInformationList();
+    void mousePressEvent(QMouseEvent* event);
 
-    void on_GetSetLocation_clicked();
+    void on_button_recommend_clicked();
 
 private:
     Ui::MapDialog *ui;

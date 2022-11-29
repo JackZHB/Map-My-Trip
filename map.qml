@@ -23,7 +23,7 @@ Rectangle{
         MouseArea {
             anchors.fill: parent
             onPressAndHold: {
-                var name = qsTr("untitled");
+                var name = qsTr("");
                 var crd = mapView.toCoordinate(Qt.point(mouseX, mouseY))
                 console.log(crd.latitude, crd.longitude, crd.altitude,name);
 
@@ -31,7 +31,7 @@ Rectangle{
             }
 
             onDoubleClicked: {
-                var name = qsTr("untitled");
+                var name = qsTr("");
                 var crd = mapView.toCoordinate(Qt.point(mouseX, mouseY))
                 console.log(crd.latitude, crd.longitude, crd.altitude,name);
 

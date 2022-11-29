@@ -11,6 +11,7 @@
 #include "pictureentity.h"
 #include <string>
 #include <QString>
+#include "profileentity.h"
 
 class DBHelper : public QObject
 {
@@ -19,20 +20,22 @@ public:
     explicit DBHelper(QObject *parent = nullptr);
 
     /**
-     * open database connection
+     * @brief open database connection
      * @brief open
      * @return
      */
     bool open();
 
+
     /**
-     * close database connection
+     * @brief close database connection
      * @brief close
      */
     void close();
 
+
     /**
-     * register new user
+     * @brief register new user
      * @brief addUser
      * @param username
      * @param password
@@ -40,8 +43,9 @@ public:
      */
     int addUser(QString username, QString password);
 
+
     /**
-     * find user and return id
+     * @brief find user and return id
      *
      * @brief checkUser
      * @param username
@@ -50,8 +54,9 @@ public:
      */
     int checkUser(QString username, QString password);
 
+
     /**
-     * add new mark point
+     * @brief add new mark point
      * @brief addPoint
      * @param userId
      * @param latitude
@@ -60,20 +65,28 @@ public:
      */
     int addPoint(int userId, double latitude, double longitude, QString name);
 
+
     /**
-     * get point list by userId
-     *
+     * @brief get name of point by pointId
+     * @brief getName
+     * @param pointId
+     * @return name
+     */
+
+    QString getName(int pointId);
+
+    /**
+     * @brief get point list by userId
      * @brief getPointList
      * @param userId
      * @return
      */
 
-    QString getName(int pointId);
-
     QList<PointEntity> getPointList(int userId);
 
+
     /**
-     * add picture data by pointId
+     * @brief add picture data by pointId
      * @brief addPicture
      * @param pointId
      * @param fileName
@@ -82,37 +95,84 @@ public:
      */
     int addPicture(int pointId, QString fileName, QByteArray fileData);
 
+
     /**
-     * get picture list by pointId
-     *
+     * @brief get picture list by pointId
      * @brief getPictureList
      * @param pointId
      * @return
      */
     QList<PictureEntity> getPictureList(int pointId);
 
+
     /**
-     * logical delete picture by id
+     * @brief Add user post by pointId
+     * @brief addPost
+     * @param pointId
+     * @param postText
+     * @return
+     */
+    int addPost(int pointId, QString postText);
+
+
+    /**
+     * @brief logical delete picture by id
      * @brief deletePicture
      * @param id
      * @return
      */
     bool deletePicture(int id);
+
+
+    /**
+     * @brief add Profile
+     * @brief addProfile
+     * @param userId, name, Gender, Tagline, fileName, Location
+     * @return
+     */
+    int addProfile(int userID, QString name, int Gender, QString Tagline, QString fileName, QString Location);
+
+
+    /**
+     * @brief check if Profile existed
+     * @brief checkProfile
+     * @param userID
+     * @return
+     */
+    int checkProfile(int userID);
+
+
+    /**
+     * @brief Update Profile
+     * @brief updateProfile
+     * @param userID, name, Gender, Tagline, fileName, Location
+     * @return
+     */
+    int updateProfile(int userID, QString name, int Gender, QString Tagline, QString fileName, QString Location);
+
+    /**
+     * @brief Get Profile
+     * @brief getProfile
+     * @param userID
+     * @return ProfileEntity
+     */
+    ProfileEntity getProfile(int userID);
 signals:
 
 private:
     /**
-     * if database not exist, create new database and init tables.
+     * @brief if database not exist, create new database and init tables.
      * @brief initData
      */
     void initData();
 
     QSqlDatabase db;
     /**
-     * database filename, default is 'data.db'
+     * @brief database filename, default is 'data.db'
      * @brief fileName
      */
     QString fileName;
+
 };
 
 #endif // DBHELPER_H
