@@ -72,19 +72,20 @@ int DBHelper::addPoint(int userId, double latitude, double longitude, QString na
 QString DBHelper::getName(int pointId)
 {
     QSqlQuery query;
-    query.prepare("select name from t_point where point_id=:pointId");
-    query.bindValue(":pointId", pointId);
+    query.prepare("select name from t_point where deleted=0 and id=:Id");
+    query.bindValue(":Id", pointId);
+    query.next();
     query.exec();
 
     QString name= query.value(0).toString();
 
-   return name;
+   return query.value(0).toString();
 }
 
 QList<PointEntity> DBHelper::getPointList(int userId)
 {
     QSqlQuery query;
-    query.prepare("select id, user_id, latitude, longitude, create_time, deleted from t_point where deleted=0 and user_id=:userId");
+    query.prepare("select id, user_id, latitude, longitude, create_time, deleted, name from t_point where deleted=0 and user_id=:userId");
     query.bindValue(":userId", userId);
     query.exec();
 
