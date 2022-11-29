@@ -24,7 +24,7 @@ PictureDialog::PictureDialog(int pointId, QWidget *parent) :
 
 
     QString name = helper.getName(pointId);
-   ui->label_location_name->setText(name);
+    ui->label_location_name->setText(name);
 
 
     ui->scrollArea->setWidget(label);

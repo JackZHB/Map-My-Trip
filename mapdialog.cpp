@@ -40,7 +40,7 @@ MapDialog::MapDialog( int userId, QWidget *parent) :
 
 
 
-    addLocationInformationList();
+
     updatePointList();
 
 
@@ -91,15 +91,22 @@ void MapDialog::addLocationInformationList(){
 
     QTextStream in(&readFile);
 
+
     while (!in.atEnd()){
         QString line = in.readLine();
-
         QStringList locationElement = line.split(u',');
         QString name=locationElement[0];
         QString lat=locationElement[1];
         QString longt=locationElement[2];
         addPoint(lat,longt,name);
     }
+
     readFile.close();
+}
+
+
+void MapDialog::on_GetSetLocation_clicked()
+{
+    addLocationInformationList();
 }
 

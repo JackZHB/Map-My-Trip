@@ -49,6 +49,8 @@ private slots:
     void pointClicked(QVariant pointId);
     void addLocationInformationList();
 
+    void on_GetSetLocation_clicked();
+
 private:
     Ui::MapDialog *ui;
     DBHelper helper;

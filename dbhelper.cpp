@@ -59,7 +59,7 @@ int DBHelper::checkUser(QString username, QString password)
 int DBHelper::addPoint(int userId, double latitude, double longitude, QString name)
 {
     QSqlQuery query;
-    query.prepare("insert into t_point(user_id, latitude, longitude, create_time,name) values(:userId, :latitude, :longitude, :createTime, :name)");
+    query.prepare("insert into t_point(user_id, latitude, longitude, create_time, name) values(:userId, :latitude, :longitude, :createTime, :name)");
     query.bindValue(":userId", userId);
     query.bindValue(":latitude", latitude);
     query.bindValue(":longitude", longitude);
@@ -69,14 +69,16 @@ int DBHelper::addPoint(int userId, double latitude, double longitude, QString na
     return query.lastInsertId().toInt();
 }
 
-QString DBHelper::getName(int userId)
+QString DBHelper::getName(int pointId)
 {
     QSqlQuery query;
-    query.prepare("select id, user_id, latitude, longitude, create_time, deleted from t_point where deleted=0 and user_id=:userId");
-    query.bindValue(":userId", userId);
+    query.prepare("select name from t_point where point_id=:pointId");
+    query.bindValue(":pointId", pointId);
     query.exec();
 
-    return query.value(6).toString();
+    QString name= query.value(0).toString();
+
+   return name;
 }
 
 QList<PointEntity> DBHelper::getPointList(int userId)
